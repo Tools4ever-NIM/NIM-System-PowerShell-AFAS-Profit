@@ -24,7 +24,7 @@ function Idm-SystemInfo {
         [string] $ConnectionParams
     )
 
-    Log info "-Connection=$Connection -TestConnection=$TestConnection -Configuration=$Configuration -ConnectionParams='$ConnectionParams'"
+    Log verbose "-Connection=$Connection -TestConnection=$TestConnection -Configuration=$Configuration -ConnectionParams='$ConnectionParams'"
 
     if ($Connection) {
         @(
@@ -110,7 +110,7 @@ function Idm-SystemInfo {
     if ($TestConnection) {
         $connection_params = ConvertFrom-Json2 $ConnectionParams
 
-        Log info "Invoke-AfasGetConnector '$($connection_params.InventoryGetConnector)'"
+        Log verbose "Invoke-AfasGetConnector '$($connection_params.InventoryGetConnector)'"
 
         Invoke-AfasGetConnector @connection_params -GetConnector $connection_params.InventoryGetConnector | Out-Null
     }
@@ -119,7 +119,7 @@ function Idm-SystemInfo {
         @()
     }
 
-    Log info "Done"
+    Log verbose "Done"
 }
 
 
@@ -142,7 +142,7 @@ function Idm-Dispatcher {
         [string] $FunctionParams
     )
 
-    Log info "-Class='$Class' -Operation='$Operation' -GetMeta=$GetMeta -SystemParams='$SystemParams' -FunctionParams='$FunctionParams'"
+    Log verbose "-Class='$Class' -Operation='$Operation' -GetMeta=$GetMeta -SystemParams='$SystemParams' -FunctionParams='$FunctionParams'"
 
     if ($Class -eq '') {
 
@@ -153,7 +153,7 @@ function Idm-Dispatcher {
 
             $system_params = ConvertFrom-Json2 $SystemParams
 
-            Log info "Invoke-AfasGetConnector '$($system_params.InventoryGetConnector)'"
+            Log verbose "Invoke-AfasGetConnector '$($system_params.InventoryGetConnector)'"
 
             Invoke-AfasGetConnector @system_params -GetConnector $system_params.InventoryGetConnector |
                 ForEach-Object {
@@ -210,7 +210,7 @@ function Idm-Dispatcher {
 
             $system_params = ConvertFrom-Json2 $SystemParams
 
-            Log info "Invoke-AfasUpdateConnector 'metainfo/update/$($Class)'"
+            Log verbose "Invoke-AfasUpdateConnector 'metainfo/update/$($Class)'"
 
             $response = Invoke-AfasUpdateConnector @system_params -EndPoint "metainfo/update/$($Class)"
 
@@ -463,7 +463,7 @@ function Idm-Dispatcher {
 
     }
 
-    Log info "Done"
+    Log verbose "Done"
 }
 
 
